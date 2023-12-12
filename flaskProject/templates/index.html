@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if not wtf %}
+<form method="post">
+    <input type="text" name="user" value="用户名">
+    <input type="text" name="pwd" value="密码">
+    <input type="submit" value="提交">
+</form>
+{% endif %}
+{% for x in get_flashed_messages() %}
+{{ x }}
+{% endfor %}
+<hr>
+{% if wtf %}
+<form method="post">
+{#    {{ form.user.label }}{{ form.user }}#}
+{#    {{ form.pwd.label }}{{ form.pwd }}#}
+    {{ form.search.label }}{{ form.search }}
+    {{ form.search1.label }}{{ form.search1 }}
+    {{ form.submit }}
+</form>
+{% endif %}
+<hr>
+<ul>
+
+{% if authors %}
+    <h3>Authors</h3>
+    {% for author in authors %}
+        <li>{{ author.name }}<a href="{{ url_for("gotoauthor",author_id=author.id) }}">查看</a></li>
+    {% endfor %}
+{% endif %}
+
+{% if articles %}
+    <h3>Articles</h3>
+    {% for article in articles %}
+        <li>{{ article.name }}<a href="{{ url_for("gotoarticle",article_id=article.id) }}">查看</a></li>
+    {% endfor %}
+{% endif %}
+</ul>
+<form method="post">
+    {{ reviewform.csrf_token }}
+    {{ reviewform.review.label }}{{ reviewform.review }}
+    {{ reviewform.submit }}
+</form>
+{% if reviews %}
+    <h3>Reviews</h3>
+    {% for rv in reviews %}
+        <li>{{ rv.text }}&nbsp;&nbsp;情感评价：{{ rv.polarity }}</li>
+    {% endfor %}
+{% endif %}
+</body>
+</html>

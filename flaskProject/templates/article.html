@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Article</title>
+</head>
+<body>
+<a href="/wtform">返回搜索</a>
+{% if article %}
+<h2>{{ article.name }}</h2>
+    <h3>Field</h3>
+    {% for fd in field %}
+    <li>{{ fd.name }}</li>
+    {% endfor %}
+<h3>Authors</h3>
+    {% for author in authors %}
+    <li>{{ author.name }}<a href="{{ url_for("gotoauthor",author_id=author.id) }}">查看</a></li>
+    {% endfor %}
+{% endif %}
+</body>
+</html>

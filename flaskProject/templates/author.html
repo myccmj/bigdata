@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Author</title>
+</head>
+<body>
+<a href="/wtform">返回搜索</a>
+{% if author %}
+<h1>{{ author.name }}</h1>
+    <h2>Articles</h2>
+    {% for article in articles %}
+    <li>{{ article.name }}<a href="{{ url_for("gotoarticle",article_id=article.id) }}">查看</a></li>
+    {% endfor %} <br>
+    <h2>Relevant Authors</h2>
+    {% for au2 in relevant_authors %}
+    <li>{{ au2.name }}<a href="{{ url_for("gotoauthor",author_id=au2.id) }}">查看</a></li>
+    {% endfor %}
+
+<form method="post">
+   {{ form.csrf_token }}
+    <label>推荐方式</label>
+        {{ form.my_field() }}
+        {% for message in form.my_field.errors %}
+        <small class="error">{{ message }}</small><br>
+        {% endfor %}
+    {{ form.submit }}
+    </form>
+{% endif %}
+</body>
+</html>
